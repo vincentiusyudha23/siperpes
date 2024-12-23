@@ -14,7 +14,7 @@
             <span class="fw-semibold fs-6 text-secondary">Unit</span>
         </div>
         <div class="widget-item">
-            <div class="circle-widget bg-body-secondary shadow-md">
+            <div class="circle-widget bg-body-secondary shadow-md route-btn" data-id="{{ $perumahan->id }}">
                 <i class="fa-solid fa-route fa-xl"></i>
             </div>
             <span class="fw-semibold fs-6 text-secondary">Rute</span>
