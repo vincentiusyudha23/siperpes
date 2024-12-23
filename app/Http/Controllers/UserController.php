@@ -14,8 +14,23 @@ class UserController extends Controller
 {
     public function index()
     {
-        // dd(getLatLng(521712,9405067));
-        return view('user.home');
+        $geojsonData = DB::table('perumahans')
+            ->select(DB::raw('ST_AsGeoJSON(geom) AS geojson, ST_AsGeoJSON(lnglat) as point, id, name_perum'))
+            ->get();
+
+        $markers = $geojsonData->transform(function($data){
+            return [
+                'id' => $data->id,
+                'name' => $data->name_perum,
+                'point' => json_decode($data->point, true),
+                'polygon' => [
+                    'type' => 'Feature',
+                    'geometry' => json_decode($data->geojson, true)
+                ]
+            ];
+        });
+
+        return view('user.home', compact('markers'));
     }
 
     public function login()
@@ -45,6 +60,15 @@ class UserController extends Controller
         }catch(\Exception $e){
             dd($e->getMessage());
         }
+    }
+
+    public function requestLogout(Request $request)
+    {
+        Auth::logout();
+        $request->session()->invalidate(); 
+        $request->session()->regenerateToken(); 
+
+        return redirect()->route('home')->with('success', 'Berhasil logout!');
     }
 
     public function dashboard()

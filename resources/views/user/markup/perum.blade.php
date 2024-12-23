@@ -45,3 +45,7 @@
         </div>
     </div>
 </div>
+
+<button class="btn btn-sm btn-danger btn-close-sidebar">
+    <i class="fa-solid fa-x"></i>
+</button>

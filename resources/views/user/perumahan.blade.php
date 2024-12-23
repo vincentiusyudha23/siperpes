@@ -64,6 +64,12 @@
             justify-content: center;
             align-items: center;
         }
+        .btn-close-sidebar{
+            position: absolute;
+            right: 10px;
+            top: 10px;
+            z-index: 100;
+        }
     </style>
 @endsection
 
@@ -210,9 +216,9 @@
                 });
             });
 
-            // function requestGetInfo(id){
-                
-            // }
+            $(document).on('click', '.btn-close-sidebar', function(){
+                $('.map-sidebar-info').removeClass('active');
+            });
 
         });
     </script>
