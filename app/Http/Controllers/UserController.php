@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Perumahan;
+use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
@@ -93,7 +94,7 @@ class UserController extends Controller
         
 
         $data = getLatLng($request->east, $request->nort);
-
+        
         return response()->json([
             'status' => 'success',
             'data' => $data
@@ -105,17 +106,30 @@ class UserController extends Controller
         $request->validate([
             'name_perum' => 'required',
             'name_pengembang' => 'required',
+            'image' => 'required',
             'desa' => 'required',
             'kecamatan' => 'required',
-            'tahun' => 'required',
+            'tahun_berdiri' => 'required',
             'jumlah_unit' => 'required',
             'easting' => 'required',
-            'northing' => 'required',
+            'norting' => 'required',
             'polygon' => 'required'
         ]);
-
+        
         try{
-            $lnglat = getLatLng($request->easting, $request->northing);
+
+            $image = $request->image;
+            $img_ex = $image->extension();
+            $image_name_with_ext = $image->getClientOriginalName();
+
+            $image_name = pathinfo($image_name_with_ext, PATHINFO_FILENAME);
+            $image_name = strtolower(Str::slug($image_name));
+
+            $image_db = $image_name.time().'.'.$img_ex;
+            $folder_path = public_path('asset/img');;
+            $image->move($folder_path, $image_db);
+
+            $image_url = asset('asset/img/' . $image_db);
 
             $luasArea = DB::selectOne("
                 SELECT ST_Area(
@@ -139,10 +153,11 @@ class UserController extends Controller
                 'name_pengembang' => $request->name_pengembang,
                 'desa' => $request->desa,
                 'kecamatan' => $request->kecamatan,
-                'tahun_berdiri' => $request->tahun,
+                'tahun_berdiri' => $request->tahun_berdiri,
                 'jumlah_unit' => $request->jumlah_unit,
+                'image' => $image_url,
                 'easting' => $request->easting,
-                'norting' => $request->northing,
+                'norting' => $request->norting,
                 'geom' => DB::raw("ST_GeomFromGeoJSON('" . $request->polygon . "')"),
                 'lnglat' => DB::raw("ST_SetSRID(ST_MakePoint({$centroid->lng}, {$centroid->lat}), 4326)"),
                 'luas_perumahan' => $luasArea

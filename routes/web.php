@@ -27,5 +27,6 @@ Route::controller(UserController::class)->group(function(){
         Route::get('/perumahan', 'perumahan')->name('perumahan');
         Route::get('/add-perum', 'add_perum')->name('perumahan.add');
         Route::post('/create-perum', 'create_perum')->name('perumahan.store');
+        Route::post('/getlatlng', 'req_get_lnglat')->name('getlatlng-req');
     });
 });

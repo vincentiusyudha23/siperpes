@@ -32,6 +32,11 @@
 @endsection
 
 @section('script')
+    @if (session('success'))
+        <script>
+            toastr.success('{{ session('success') }}');
+        </script>
+    @endif
     <script>
         $(document).ready(function(){
             mapboxgl.accessToken = '{{ env("MAPBOX_KEY") }}';
@@ -43,6 +48,8 @@
             });
 
             map.addControl(new mapboxgl.NavigationControl());
+
+
         });
     </script>
 @endsection

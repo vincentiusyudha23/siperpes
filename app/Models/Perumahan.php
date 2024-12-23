@@ -13,7 +13,7 @@ class Perumahan extends Model
 
     protected $fillable = [
         'name_perum',
-        'name_pengembangan',
+        'name_pengembang',
         'desa',
         'kecamatan',
         'jumlah_unit',
@@ -22,6 +22,7 @@ class Perumahan extends Model
         'easting',
         'norting',
         'lnglat',
-        'luas_perumahan'
+        'luas_perumahan',
+        'image'
     ];
 }

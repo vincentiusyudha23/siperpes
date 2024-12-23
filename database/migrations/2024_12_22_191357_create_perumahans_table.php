@@ -14,11 +14,12 @@ return new class extends Migration
         Schema::create('perumahans', function (Blueprint $table) {
             $table->id();
             $table->string('name_perum');
-            $table->string('name_pengembangan');
+            $table->string('name_pengembang');
             $table->string('desa');
             $table->string('kecamatan');
             $table->integer('jumlah_unit');
             $table->integer('tahun_berdiri');
+            $table->string('image');
             $table->integer('easting');
             $table->integer('norting');
             $table->polygon('geom');
