@@ -14,7 +14,7 @@
     <div class="container-fluid p-3">
         <div class="w-100">
             <div class="row">
-                <div class="col-12 col-md-6">
+                <div class="col-12 col-md-6 mb-3">
                     <div class="card w-100 bg-danger" style="height: 200px;">
                         <div class="card-body w-100 h-100">
                             <div class="row h-100">
@@ -45,18 +45,18 @@
             </div>
         </div>
 
-        <div class="w-100 mt-3">
-            <table class="table table-responsive table-striped">
+        <div class="w-100 mt-3 table-responsive">
+            <table class="table table-striped">
                 <thead class="table-primary">
                     <tr>
                         <th>No.</th>
                         <th>Perumahan</th>
                         <th>Nama Pengembang</th>
-                        <th>Desa</th>
-                        <th>Kecamatan</th>
-                        <th>Jumlah Unit</th>
-                        <th>Luast Perumahan</th>
-                        <th>Tahun Berdiri</th>
+                        <th class="text-center">Desa</th>
+                        <th class="text-center">Kecamatan</th>
+                        <th class="text-center">Jumlah Unit</th>
+                        <th class="text-center">Luast Perumahan</th>
+                        <th class="text-center">Tahun Berdiri</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -64,12 +64,12 @@
                         <tr>
                             <td>{{ $loop->index + 1 }}</td>
                             <td>{{ $item->name_perum }}</td>
-                            <td>{{ $item->name_pengembangan }}</td>
-                            <td><{{ $item->desa }}/td>
-                            <td>{{ $item->kecamatan }}</td>
-                            <td>{{ $item->jumlah_unit }}</td>
-                            <td>{{ $item->luas_perumahan }}</td>
-                            <td>{{ $item->tahun_berdiri }}</td>
+                            <td>{{ $item->name_pengembang }}</td>
+                            <td class="text-center">{{ $item->desa }}</td>
+                            <td class="text-center">{{ $item->kecamatan }}</td>
+                            <td class="text-center">{{ $item->jumlah_unit }}</td>
+                            <td class="text-center">{{ $item->luas_perumahan }} M<sup>2</sup></td>
+                            <td class="text-center">{{ $item->tahun_berdiri }}</td>
                         </tr>
                     @endforeach
                 </tbody>

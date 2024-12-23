@@ -16,6 +16,7 @@ use App\Http\Controllers\UserController;
 
 Route::controller(UserController::class)->group(function(){
     Route::get('/', 'index')->name('home');
+    Route::get('/get-info-perumahan/{id}', 'getPerumahan')->name('getInfoPerumahan');
 
     Route::middleware('guest')->group(function(){
         Route::get('/login', 'login')->name('login');
