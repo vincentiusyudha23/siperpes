@@ -75,6 +75,15 @@
             top: 10px;
             z-index: 100;
         }
+        .search-box{
+            background: white;
+            border-radius: 15px;
+            position: absolute;
+            top: 10px;
+            left: 35%;
+            z-index: 100;
+            width: 30%;
+        }
     </style>
 @endsection
 
@@ -84,7 +93,15 @@
         <div class="map-sidebar-info rounded-end shadow-sm">
             
         </div>
-
+        <div class="search-box px-3 py-2">
+            <span class="fw-semibold m-0 p-0">Pencarian</span>
+            <select class="js-example-basic-single form-select" name="state">
+                <option></option>
+                @foreach ($markers as $item)
+                    <option value="{{ $item['id'] }}">{{ $item['name'] }}, Desa {{ $item['desa'] }}, Kec. {{ $item['kecamatan'] }}</option>
+                @endforeach
+            </select>
+        </div>
         <div id="map"></div>
     </div>
 @endsection
@@ -93,6 +110,9 @@
   
     <script>
         $(document).ready(function(){
+            $('.js-example-basic-single').select2({
+                placeholder: 'Pilih Perumahan'
+            });
             mapboxgl.accessToken = '{{ env("MAPBOX_KEY") }}';
             const map = new mapboxgl.Map({
                 container: 'map',
@@ -214,6 +234,20 @@
             $(document).on('click', '.btn-close-sidebar', function(){
                 $('.map-sidebar-info').removeClass('active');
             });
+
+            $('.js-example-basic-single').on('change', function(){
+                const select_perum = $(this).val();
+                const selectedPerum = markers.find(
+                    (item) => item.id == select_perum
+                );
+
+                map.flyTo({
+                    center: selectedPerum.point.coordinates,
+                    zoom: 16,
+                    essential: true
+                });
+                
+            })
 
         });
     </script>

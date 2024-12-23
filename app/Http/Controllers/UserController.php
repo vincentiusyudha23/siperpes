@@ -15,13 +15,15 @@ class UserController extends Controller
     public function index()
     {
         $geojsonData = DB::table('perumahans')
-            ->select(DB::raw('ST_AsGeoJSON(geom) AS geojson, ST_AsGeoJSON(lnglat) as point, id, name_perum'))
+            ->select(DB::raw('ST_AsGeoJSON(geom) AS geojson, ST_AsGeoJSON(lnglat) as point, id, name_perum, desa, kecamatan'))
             ->get();
 
         $markers = $geojsonData->transform(function($data){
             return [
                 'id' => $data->id,
                 'name' => $data->name_perum,
+                'desa' => $data->desa,
+                'kecamatan' => $data->kecamatan,
                 'point' => json_decode($data->point, true),
                 'polygon' => [
                     'type' => 'Feature',
