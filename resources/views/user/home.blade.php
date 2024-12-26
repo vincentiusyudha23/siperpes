@@ -9,14 +9,8 @@
             top: 0;
             left: 0;
             width: 100%;
-            height: 88vh;
+            height: 90vh;
             z-index: 1;
-        }
-        .btn-add-perum{
-            position: absolute;
-            top: 15px;
-            right: 50px;
-            z-index: 2;
         }
         .map-sidebar-info{
             position: absolute;
@@ -25,9 +19,8 @@
             width: 300px;
             height: 100%;
             background: white;
-            z-index: 3;
+            z-index: 998;
             transition: left 0.3s ease;
-            overflow-y: scroll;
         }
         .map-sidebar-info.active{
             left: 0;
@@ -84,29 +77,109 @@
             z-index: 100;
             width: 30%;
         }
+        .box-intruction-rute{
+            position: fixed;
+            width: 300px;
+            height: 400px;
+            max-height: 400px !important;
+            background: rgb(255, 255, 255, 0.7);
+            bottom: 20px;
+            right: 10px;
+            z-index: 999;
+            border-radius: 15px;
+            display: none;
+            transition: display 0.3s ease;
+        }
+        .box-intruction-rute.active{
+            display: block;
+        }
+        .box-content-itr-rute{
+            width: 100%;
+            height: 100%;
+            padding: 10px;
+        }
+        @media (max-width: 768px){
+            .search-box{
+                left: 50%;
+                top: 10%;
+                transform: translate(-50%, -50%);
+                z-index: 100;
+                width: 50%;
+            }
+        }
+        @media (max-width: 576px){
+            .search-box{
+                width: 70%;
+                left: 40%;
+            }
+        }
     </style>
 @endsection
 
 @section('content')
-    <div class="w-100 h-100 position-relative overflow-hidden">
-        
-        <div class="map-sidebar-info rounded-end shadow-sm">
-            
-        </div>
+    <div class="w-100 h-100 position-relative">
+
         <div class="search-box px-3 py-2">
             <span class="fw-semibold m-0 p-0">Pencarian</span>
             <select class="js-example-basic-single form-select" name="state">
                 <option></option>
                 @foreach ($markers as $item)
-                    <option value="{{ $item['id'] }}">{{ $item['name'] }}, Desa {{ $item['desa'] }}, Kec. {{ $item['kecamatan'] }}</option>
+                    <option value="{{ $item['id'] }}">{{ $item['name'] }}, Desa {{ $item['desa'] ?? '' }}, Kec. {{ $item['kecamatan'] ?? '' }}</option>
                 @endforeach
             </select>
         </div>
+
+        <div class="map-sidebar-info rounded-end shadow-sm">
+            
+        </div>
+
+        <div class="box-intruction-rute">
+            <div class="w-100 d-flex justify-content-end">
+                <button type="button" id="btn-close-bir" class="btn text-center btn-sm btn-danger d-flex position-absolute justify-content-center align-items-center rounded-circle" 
+                        style="width: 25px; height: 25px; top: 10px; right: 10px;">
+                    <span class="fw-bold">X</span>
+                </button>
+            </div>
+            <div class="w-100 d-flex justify-content-center align-items-center" style="height: 25%;">
+                <div class="d-flex gap-3 align-items-center">
+                    <i class="fa-solid fa-car fa-2xl"></i>
+                    <div class="d-flex flex-column gap-0">
+                        <span class="fw-bold m-0 p-0" id="duration"></span>
+                        <span class="fw-bold m-0 p-0" id="distance"></span>
+                    </div>
+                </div>
+            </div>
+            <div class="w-100 d-flex gap-2 px-3">
+                <div class="w-50">
+                    <button class="btn btn-sm btn-dark rounded-sm w-100" id="btn-rute-1">
+                        Rute 1
+                    </button>
+                </div>
+                <div class="w-50">
+                    <button class="btn btn-sm btn-dark rounded-sm w-100" id="btn-rute-2">
+                        Rute 2
+                    </button>
+                </div>
+            </div>
+            <div class="box-content-itr-rute">
+                <div class="w-100 overflow-y-auto" style="max-height: 65%;">
+                    <ul class="list-group list-group-numbered" id="intruction-list">
+                        
+                    </ul>
+                </div>
+            </div>
+        </div>
+
         <div id="map"></div>
     </div>
 @endsection
 
 @section('script')
+    @if (session('success'))
+        <script>
+            toastr.success('{{ session('success') }}');
+        </script>
+    @endif
   
     <script>
         $(document).ready(function(){
@@ -178,6 +251,11 @@
                         const description = e.features[0].properties.description;
                         const polygonData = e.features[0].properties.polygon;
                         const id = e.features[0].properties.id;
+                        var box_int = $('.box-intruction-rute');
+
+                        if(box_int.hasClass('active')){
+                            box_int.removeClass('active');
+                        }
 
                         $.ajax({
                             type: 'GET',
@@ -198,13 +276,13 @@
                                 });
 
                                 if (map.getLayer('polygon-layer')) {
-                                    map.removeLayer('polygon-layer'); // Hapus layer sebelumnya jika ada
+                                    map.removeLayer('polygon-layer');
                                     map.removeSource('polygon-source');
                                 }
 
                                 map.addSource('polygon-source', {
                                     type: 'geojson',
-                                    data: JSON.parse(polygonData) // Gunakan data polygon
+                                    data: JSON.parse(polygonData)
                                 });
 
                                 map.addLayer({
@@ -235,7 +313,7 @@
                 $('.map-sidebar-info').removeClass('active');
             });
 
-            $('.js-example-basic-single').on('change', function(){
+             $('.js-example-basic-single').on('change', function(){
                 const select_perum = $(this).val();
                 const selectedPerum = markers.find(
                     (item) => item.id == select_perum
@@ -250,6 +328,7 @@
             })
 
             var start = [105.3247127,-5.4142];
+            var route_json;
 
             $(document).on('click', '.route-btn', function() {
                 var el = $(this);
@@ -267,11 +346,42 @@
             
             async function getRoute(end) {
                 const query = await fetch(
-                    `https://api.mapbox.com/directions/v5/mapbox/driving/${start[0]},${start[1]};${end[0]},${end[1]}?steps=true&geometries=geojson&access_token=${mapboxgl.accessToken}`,
+                    `https://api.mapbox.com/directions/v5/mapbox/driving/${start[0]},${start[1]};${end[0]},${end[1]}?alternatives=true&steps=true&geometries=geojson&language=id&overview=full&access_token=${mapboxgl.accessToken}`,
                     { method: 'GET' }
                 );
-                const json = await query.json();
-                const data = json.routes[0];
+                route_json = await query.json();
+                setRoute(0);
+
+                var box_int = $('.box-intruction-rute');
+
+                if(!box_int.hasClass('active')){
+                    box_int.addClass('active');
+                }
+            };
+
+            function formatDuration(seconds) {
+                const hours = Math.floor(seconds / 3600); // Hitung jam
+                const minutes = Math.floor((seconds % 3600) / 60); // Hitung menit
+                const remainingSeconds = Math.floor(seconds % 60); // Hitung detik
+
+                let result = '';
+                if (hours > 0) result += `${hours} jam, `;
+                if (minutes > 0) result += `${minutes} menit, `;
+                if (remainingSeconds > 0) result += `${remainingSeconds} detik`;
+
+                return result.trim();
+            }
+
+            function formatDistance(dist){
+                if (dist > 1000) {
+                    return `${ Math.floor(dist/1000) } KM`;
+                }else{
+                     return `${ Math.floor(dist) } M`;
+                }
+            }
+
+            function setRoute(rute){
+                const data = route_json.routes[rute];
                 const route = data.geometry.coordinates;
                 const geojson = {
                     type: 'Feature',
@@ -282,8 +392,16 @@
                     }
                 };
 
-                
-                
+                const intruction = data.legs[0].steps;
+                $('#intruction-list').empty();
+                intruction.map(function(step){
+                    $('#intruction-list').append(`<li class="fw-semibold list-group-item">${step.maneuver.instruction}</li>`)
+                });
+
+                $('.box-intruction-rute').addClass('active');
+
+                $('#duration').text(formatDuration(data.duration));
+                $('#distance').text(formatDistance(data.distance));
                 if (map.getSource('route')) {
                     map.getSource('route').setData(geojson);
                 }else {
@@ -311,8 +429,21 @@
                     zoom: 12,
                     essential: true
                 });
-                
-            };
+            }
+
+            $(document).on('click', '#btn-rute-1', function(){
+                setRoute(0);
+            });
+            $(document).on('click', '#btn-rute-2', function(){
+                setRoute(1);
+            });
+            $(document).on('click', '#btn-close-bir', function(){
+                var box_int = $('.box-intruction-rute');
+
+                if(box_int.hasClass('active')){
+                    box_int.removeClass('active');
+                }
+            });
 
         });
     </script>

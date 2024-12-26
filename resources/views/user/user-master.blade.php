@@ -61,6 +61,7 @@
                 }
                 .content-admin{
                     width: 100%;
+                    height: 90vh;
                 }
                 .btn-menu{
                     display: flex;
@@ -76,7 +77,7 @@
             <div class="sidebar-admin bg-primary">
                 @include('partials.sidebar')
             </div>
-            <div class="content-admin">
+            <div class="content-admin overflow-hidden">
                 @yield('content')
             </div>
         </div>

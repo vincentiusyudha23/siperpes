@@ -85,7 +85,7 @@ class UserController extends Controller
         $perumahans = Perumahan::all();
 
         $geojsonData = DB::table('perumahans')
-            ->select(DB::raw('ST_AsGeoJSON(geom) AS geojson, ST_AsGeoJSON(lnglat) as point, id, name_perum'))
+            ->select(DB::raw('ST_AsGeoJSON(geom) AS geojson, ST_AsGeoJSON(lnglat) as point, id, name_perum, desa, kecamatan'))
             ->get();
 
         $markers = $geojsonData->transform(function($data){
@@ -93,6 +93,8 @@ class UserController extends Controller
                 'id' => $data->id,
                 'name' => $data->name_perum,
                 'point' => json_decode($data->point, true),
+                'desa' => $data->desa,
+                'kecamatan' => $data->kecamatan,
                 'polygon' => [
                     'type' => 'Feature',
                     'geometry' => json_decode($data->geojson, true)
