@@ -2,9 +2,23 @@
 
 @section('title', 'Login')
 
+@section('style')
+    <style>
+        .card-login{
+            width: 30%;
+        }
+        @media (max-width: 576px){
+            .card-login{
+                width: 100%;
+                margin: 0 15px;
+            }
+        }
+    </style>
+@endsection
+
 @section('content')
     <div class="w-100 vh-100 bg-primary d-flex justify-content-center align-items-center">
-        <div class="card" style="width: 25%;">
+        <div class="card card-login">
             <div class="w-100 px-2 py-3 text-center">
                 <h3 class="fw-bold text-primary">SIPERPES</h3>
                 <span class="fw-semibold text-primary fs-5">Login</span>

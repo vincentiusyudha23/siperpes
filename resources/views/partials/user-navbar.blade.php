@@ -2,7 +2,7 @@
     <div class="container-fluid px-4 py-2 text-white">
         <span class="navbar-brand mb-0 h1 fw-bold text-white fs-4">SIPERPES</span>
 
-        <div class="dropdown mx-5">
+        <div class="dropdown mx-sm-5">
             <a href="#" class="text-white list-style-none d-flex dropdown-toggle justify-content-center align-items-center gap-2" data-bs-toggle="dropdown" aria-expanded="false">
                 <i class="fa-solid fa-user fa-lg"></i>
                 <span class="fw-semibold">{{ auth()->user()->name ?? '' }}</span>
@@ -19,7 +19,7 @@
         </div>
     </div>
 
-    <div class="btn-menu ">
+    <div class="btn-menu">
         <button class="btn btn-sm btn-primary border-2 rounded-pill border-light" id="btn-menu-upbar">
             <span class="fw-semibold">Menu</span>
         </button>

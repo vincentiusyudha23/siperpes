@@ -20,7 +20,6 @@
         }
         .map-sidebar-info{
             position: absolute;
-            top: 0;
             left: -300px;
             width: 300px;
             height: 100%;
@@ -30,7 +29,6 @@
         }
         .map-sidebar-info.active{
             left: 0;
-            top: 0;
         }
         .sidebar-header{
             width: 100%;
@@ -40,7 +38,6 @@
             height: 200px;
             object-fit: cover;
             object-position: center center;
-            border-radius: 0 10px 0 0;
         }
         .widget-sidebar{
             width: 100%;
@@ -112,7 +109,7 @@
                 left: 50%;
                 top: 10%;
                 transform: translate(-50%, -50%);
-                z-index: 100;
+                z-index: 2;
                 width: 50%;
             }
             .btn-add-perum{
@@ -135,6 +132,37 @@
             .search-box{
                 width: 70%;
                 left: 40%;
+            }
+            .box-intruction-rute{
+                position: fixed;
+                width: 100%;
+                height: 250px;
+                max-height: 400px !important;
+                background: white;
+                bottom: -250px;
+                left: 0;
+                z-index: 999;
+                border-radius: 15px;
+                display: block;
+                transition: bottom 0.3s ease;
+            }
+            .box-intruction-rute.active{
+                bottom: 0;
+            }
+            .map-sidebar-info{
+                position: fixed;
+                width: 100%;
+                height: 300px;
+                max-height: 300px;
+                bottom: -300px;
+                left: 0;
+                background: white;
+                z-index: 999;
+                transition: bottom 0.3s ease;
+                overflow-y: scroll;
+            }
+            .map-sidebar-info.active{
+                bottom: 0;
             }
         }
     </style>
@@ -374,6 +402,7 @@
                 var end = selectedPerum.point.coordinates;
 
                 getRoute(end);
+                $('.btn-close-sidebar').trigger('click');
             });
             
             

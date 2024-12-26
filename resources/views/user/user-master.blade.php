@@ -31,7 +31,7 @@
             .content-admin{
                 width: 80%;
                 max-height: 90vh;
-                overflow: scroll;
+                overflow: hidden;
             }
             .btn-menu{
                 position: absolute;
@@ -40,7 +40,7 @@
                 display: none;
                 justify-content: center;
                 align-items: center;
-                z-index: 1000;
+                z-index: 4;
             }
             .upbar{
                 width: 100%;
@@ -48,7 +48,7 @@
                 display: none;
                 position: absolute;
                 bottom: -120px;
-                z-index: 999;
+                z-index: 3;
             }
             .upbar.active{
                 height: auto;
@@ -62,6 +62,7 @@
                 .content-admin{
                     width: 100%;
                     height: 90vh;
+                    overflow-y: scroll;
                 }
                 .btn-menu{
                     display: flex;
@@ -77,7 +78,7 @@
             <div class="sidebar-admin bg-primary">
                 @include('partials.sidebar')
             </div>
-            <div class="content-admin overflow-hidden">
+            <div class="content-admin">
                 @yield('content')
             </div>
         </div>
