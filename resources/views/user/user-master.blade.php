@@ -31,7 +31,7 @@
             .content-admin{
                 width: 80%;
                 max-height: 90vh;
-                overflow: hidden;
+                overflow-y: scroll;
             }
             .btn-menu{
                 position: absolute;
@@ -62,7 +62,6 @@
                 .content-admin{
                     width: 100%;
                     height: 90vh;
-                    overflow-y: scroll;
                 }
                 .btn-menu{
                     display: flex;
@@ -74,7 +73,7 @@
 
         @include('partials.user-navbar')
 
-        <div class="w-100 h-100 d-flex">
+        <div class="w-100 h-100 d-flex overflow-hidden">
             <div class="sidebar-admin bg-primary">
                 @include('partials.sidebar')
             </div>
