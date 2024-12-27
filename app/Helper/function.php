@@ -29,7 +29,7 @@ function getLatLng($easting, $northing){
 function global_assets_path($path)
 {
     if(env('APP_ENV') == 'production'){
-        $publicHtmlPath = '/home/vincenti/public_html'; 
+        $publicHtmlPath = '/home/vyrsite1/public_html'; 
         return str_replace(['core/public/', 'core\\public\\'], '', $publicHtmlPath . '/' .$path);
     }else{
         return str_replace(['core/public/', 'core\\public\\'], '', public_path($path));
