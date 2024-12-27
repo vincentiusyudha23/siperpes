@@ -2,11 +2,11 @@
 
 SIPERPES adalah sebuah web GIS (Geographic Information System) yang memberikan informasi mengenai perumahan-perumahan yang ada di Kabupaten Pesawaran, Provinsi Lampung. Sistem ini bertujuan untuk mempermudah masyarakat dalam mencari informasi tentang perumahan yang tersedia di daerah tersebut.
 
-![image](https://github.com/vincentiusyudha23/siperpes/blob/main/public/asset/img/img-3.png?raw=true)
-![image](https://github.com/vincentiusyudha23/siperpes/blob/main/public/asset/img/img-4.png?raw=true)
-![image](https://github.com/vincentiusyudha23/siperpes/blob/main/public/asset/img/img-5.png?raw=true)
-![image](https://github.com/vincentiusyudha23/siperpes/blob/main/public/asset/img/img-1.jpg?raw=true)
-![image](https://github.com/vincentiusyudha23/siperpes/blob/main/public/asset/img/img-2.jpg?raw=true)
+<img src="https://github.com/vincentiusyudha23/siperpes/blob/main/public/asset/img/img-3.png?raw=true" width="500" alt="image 1">
+<img src="https://github.com/vincentiusyudha23/siperpes/blob/main/public/asset/img/img-4.png?raw=true" width="500" alt="image 2">
+<img src="https://github.com/vincentiusyudha23/siperpes/blob/main/public/asset/img/img-5.png?raw=true" width="500" alt="image 3">
+<img src="https://github.com/vincentiusyudha23/siperpes/blob/main/public/asset/img/img-1.jpg?raw=true" width="500" alt="image 4">
+<img src="https://github.com/vincentiusyudha23/siperpes/blob/main/public/asset/img/img-2.jpg?raw=true" width="500" alt="image 5">
 
 ## Fitur
 
