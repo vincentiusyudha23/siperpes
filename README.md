@@ -2,11 +2,11 @@
 
 SIPERPES adalah sebuah web GIS (Geographic Information System) yang memberikan informasi mengenai perumahan-perumahan yang ada di Kabupaten Pesawaran, Provinsi Lampung. Sistem ini bertujuan untuk mempermudah masyarakat dalam mencari informasi tentang perumahan yang tersedia di daerah tersebut.
 
-![image](https://github.com/vincentiusyudha23/siperpes/tree/main/public/asset/img/img-3.png)
-![image](https://github.com/vincentiusyudha23/siperpes/tree/main/public/asset/img/img-4.png)
-![image](https://github.com/vincentiusyudha23/siperpes/tree/main/public/asset/img/img-5.png)
-![image](https://github.com/vincentiusyudha23/siperpes/tree/main/public/asset/img/img-1.png)
-![image](https://github.com/vincentiusyudha23/siperpes/tree/main/public/asset/img/img-2.png)
+![image](./public/asset/img/img-3.jpg)
+![image](./public/asset/img/img-4.jpg)
+![image](./public/asset/img/img-5.jpg)
+![image](./public/asset/img/img-1.png)
+![image](./public/asset/img/img-2.png)
 
 ## Fitur
 
@@ -49,10 +49,12 @@ Sebelum menjalankan aplikasi, pastikan bahwa Anda telah menginstal beberapa pers
 
 Clone repositori ke dalam mesin lokal Anda:
 
-   ```bash
-   git clone https://github.com/vincentiusyudha23/siperpes.git
-   cd siperpes
-   ```
+```sh
+
+git clone https://github.com/vincentiusyudha23/siperpes.git
+cd siperpes
+
+```
 Install Depedencies
 
     ```bash
