@@ -55,9 +55,38 @@ git clone https://github.com/vincentiusyudha23/siperpes.git
 cd siperpes
 
 ```
+
 Install Depedencies
 
-    ```bash
-    composer install
-    ```
+```sh
+composer install
 
+```
+
+Konfigurasi File .env 
+
+```sh
+cp .env.example .env
+
+```
+
+Generate Key
+
+```sh
+php artisan key:generate
+
+```
+
+Migrate Database
+
+```sh
+php artisan migrate --seed
+
+```
+
+Jalankan Aplikasi
+
+```sh
+php artisan serve
+
+```
