@@ -154,7 +154,7 @@ class UserController extends Controller
             $image_name = strtolower(Str::slug($image_name));
 
             $image_db = $image_name.time().'.'.$img_ex;
-            $folder_path = public_path('asset/img');;
+            $folder_path = global_assets_path('asset/img');;
             $image->move($folder_path, $image_db);
 
             $image_url = asset('asset/img/' . $image_db);

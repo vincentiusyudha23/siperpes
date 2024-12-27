@@ -358,6 +358,20 @@
             var start = [105.3247127,-5.4142];
             var route_json;
 
+            if (navigator.geolocation) {
+                navigator.geolocation.getCurrentPosition(
+                    function(position) {
+                        start = [position.coords.longitude, position.coords.latitude];
+                        console.log('Lokasi terkini:', start);
+                    },
+                    function(error) {
+                        console.error('Tidak dapat mengambil lokasi:', error.message);
+                    }
+                );
+            } else {
+                console.error('Geolocation tidak didukung oleh browser ini.');
+            }
+
             $(document).on('click', '.route-btn', function() {
                 var el = $(this);
                 var id = el.data('id');

@@ -25,3 +25,13 @@ function getLatLng($easting, $northing){
         'longitude' => round($pointDest->x, 6),
     ];
 }
+
+function global_assets_path($path)
+{
+    if(env('APP_ENV') == 'production'){
+        $publicHtmlPath = '/home/vincenti/public_html'; 
+        return str_replace(['core/public/', 'core\\public\\'], '', $publicHtmlPath . '/' .$path);
+    }else{
+        return str_replace(['core/public/', 'core\\public\\'], '', public_path($path));
+    }
+}

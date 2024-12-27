@@ -46,7 +46,7 @@
     </div>
 </div>
 
-@if (Auth::check())
+{{-- @if (Auth::check())
 <div class="w-100 d-flex gap-2 justify-content-center align-items-center px-2">
     <a class="btn btn-sm btn-success w-100 fw-semibold">
         <i class="fa-solid fa-pen-to-square"></i> Edit
@@ -55,7 +55,7 @@
         <i class="fa-solid fa-trash"></i> Hapus
     </a>
 </div>
-@endif
+@endif --}}
 
 <button class="btn btn-sm btn-danger btn-close-sidebar">
     <i class="fa-solid fa-x"></i>
