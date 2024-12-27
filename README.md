@@ -44,6 +44,7 @@ Sebelum menjalankan aplikasi, pastikan bahwa Anda telah menginstal beberapa pers
 - Composer (untuk mengelola dependensi PHP)
 - PHP Artisan
 - Database PostgreSQL
+- Xampp/Mamp
 
 ### Langkah-langkah
 
